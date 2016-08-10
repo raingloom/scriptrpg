@@ -1,10 +1,10 @@
-local MapNode = require'MapNode'
-local MapNodeGenerator = require'Object':extend'MapNodeGenerator'
+local Node = require'Map.Node'
+local Generator = require'Object':extend'Generator'
 
 
-function MapNodeGenerator:new( k )
-	return MapNode
+function Generator:new( k )
+	return Node
 end
 
 
-return MapNodeGenerator
+return Generator

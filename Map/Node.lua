@@ -1,4 +1,4 @@
-local MapNode = require'ExtensionAwareObject':extend'MapNode'
+local MapNode = require'Object.ExtensionAware':extend'MapNode'
 
 
 function MapNode:new( neighbours )

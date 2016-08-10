@@ -13,8 +13,24 @@ function Object:allocate( ... )
 end
 
 
-function Object:new( ... )
+function Object:initialize( ... )
 end
+
+
+--[=[
+--[[--
+	Copy the object instance or the class. This is a deep copy.
+	@param t the table to copy into (optional)
+	@return deep copy
+]]
+function Object:copy( t )
+	t = t or {}
+	for k, v in pairs( self ) do
+		t[ k ] = v
+	end
+	return t
+end
+]=]
 
 
 function Object:__tostring()
@@ -41,7 +57,21 @@ function Object:is( class )
 end
 
 
+function Object:implement( ... )
+	for _, mixin in ipairs{...} do
+		if mixin.__implement then
+			mixin:__implement( self )
+		else
+			for k, v in pairs( mixin ) do
+				self[ k ] = v
+			end
+		end
+	end
+end
+
+
 function Object:isSubclassOf( class )
+	assert( not self._class, 'Can\'t call a class method on an object' )
 	while self._super do
 		if self._super == class then
 			return true

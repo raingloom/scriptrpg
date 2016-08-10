@@ -12,7 +12,7 @@ end
 
 
 function Map:set( v, x, y )
-	self[ Point( x, y ) ] = v
+	self[ Point:new( x, y ) ] = v
 end
 
 
