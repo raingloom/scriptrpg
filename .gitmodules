@@ -1,0 +1,3 @@
+[submodule "vendor/StackTracePlus"]
+	path = vendor/StackTracePlus
+	url = git@github.com:ignacio/StackTracePlus.git
