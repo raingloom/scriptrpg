@@ -1,9 +1,9 @@
-local Object = require'Object':extend'OOP Factory'
+local Object = require'Object':extend'ClassFactory'
 local Memoizer = require'Memoizer'
 
 
-function Object:new( ... )
-	return cachedImplement( self, ... )
+function Object:new( name, ... )
+	
 end
 
 

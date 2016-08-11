@@ -1,8 +1,11 @@
 local Object = { _id = 1, _name = 'Object' }
+Object.__index = Object
 
 
 function Object:new( ... )
-	return self:allocate( ... ):initialize( ... )
+	local ret = self:allocate( ... )
+	ret:initialize( ... )
+	return ret
 end
 
 
@@ -71,7 +74,6 @@ end
 
 
 function Object:isSubclassOf( class )
-	assert( not self._class, 'Can\'t call a class method on an object' )
 	while self._super do
 		if self._super == class then
 			return true
