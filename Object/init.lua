@@ -42,27 +42,40 @@ function Object:__tostring()
 end
 
 
-function Object:extend( name, copy )
-	assert( not self._class, 'Can\'t call a class method on an object' )
-	local ret = { _super = self }
+--[[--
+	Form a new subclass that extends the current class. This is the standard way of creating new classes. Metamethods are copied over _(anything that starts with "\_\_" is considered one)_.
+	param: name an optional name, defaults to AnonymousClass
+	usage: local Animal = require'Object':extend'Animal'
+]]
+function Object:extend( name )
+	local ret = {}
 	for k, v in pairs( self ) do
-		if copy or k:sub( 1, 2 ) == '__' then
+		if k:sub( 1, 2 ) == '__' then
 			ret[ k ] = v
 		end
 	end
 	ret.__index = ret
 	ret._name = name or 'AnonymousClass('..tostring( ret )..')'
+	ret._super = self
+	ret._id = 1
 	return setmetatable( ret, { __index = self } )
 end
 
 
+--[[--
+	Check if an object is a member of a given class.
+	param: class the class to check against
+]]
 function Object:is( class )
 	return self._class == class
 end
 
 
----Infects the class with a mixin. This is either done by simply doing a shallow copy of each mixin into the class or by calling the special `_included` function.
---see: Object.PersistentGenealogy.class:_included
+--[[--
+	Infects the class with a mixin. This is either done by simply doing a shallow copy of each mixin into the class or by calling the special `_included` function.
+	param: ... mixins to be included
+	see: Object.Memoized:_included
+]]
 function Object:include( ... )
 	for _, mixin in ipairs{...} do
 		if mixin._included then
