@@ -1,3 +1,5 @@
+---Sets up the environment for running init.
+--see: init
 local super = ... and (...):match '(.-%.?)[^%.]+$' or ''
 
 --set up submodule paths

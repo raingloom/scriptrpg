@@ -1,3 +1,4 @@
+---The main entry point.
 local util = require'Object.utils'
 local Animal = require'Object':extend'Animal'
 local Cat = Animal:extend'Cat'

@@ -1,6 +1,8 @@
+---Provides some utilities for working with OOP.
 local M = {}
 
 
+---Iterates the superclasses of `class`.
 function M.superclasses( class )
 	return function()
 		if class then
@@ -11,6 +13,8 @@ function M.superclasses( class )
 end
 
 
+---An alternative for `Object:isSubclassOf`.
+--see: Object:isSubclassOf
 function M.isSubclassOf( class )
 	for sup in M.superclasses( class ) do
 		if sup == class then
