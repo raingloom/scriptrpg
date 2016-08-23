@@ -2,6 +2,12 @@
 --see: init
 local super = ... and (...):match '(.-%.?)[^%.]+$' or ''
 
+
+if not _VERSION:match'5%.3$' then
+	print( require'compat53' )
+end
+
+
 --set up submodule paths
 require'vendor'
 

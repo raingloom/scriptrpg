@@ -1,5 +1,5 @@
 ---Highly dynamic OOP implementation.
-local Object = { _id = 1, _name = 'Object' }
+local Object = { _id = 1, _name = 'Object', _includes = {} }
 Object.__index = Object
 
 
@@ -58,6 +58,7 @@ function Object:extend( name )
 	ret._name = name or 'AnonymousClass('..tostring( ret )..')'
 	ret._super = self
 	ret._id = 1
+	ret._includes = { table.unpack( self._includes ) }
 	return setmetatable( ret, { __index = self } )
 end
 
@@ -77,7 +78,9 @@ end
 	see: Object.Memoized:_included
 ]]
 function Object:include( ... )
-	for _, mixin in ipairs{...} do
+	local includes = self._includes
+	local len = #includes
+	for i, mixin in ipairs{...} do
 		if mixin._included then
 			mixin:_included( self )
 		else
@@ -85,6 +88,7 @@ function Object:include( ... )
 				self[ k ] = v
 			end
 		end
+		includes[ len+i ] = mixin
 	end
 end
 

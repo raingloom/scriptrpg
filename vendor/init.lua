@@ -1,4 +1,4 @@
-local vendorPath = (... or 'vendor') .. '/'
+local vendorPath = package.searchpath( ..., package.path )
 
 local buf, i = {}, 1
 for _,s in pairs{
